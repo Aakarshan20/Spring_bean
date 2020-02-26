@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--把對象的創建交給spring管理-->
+    <!-- spring對bean的管理細節
+        1.創建bean的3種方式
+        2.bean對象的作用範圍
+        3.bean對象的生命週期
+    -->
+    <!--創建bean的三種方式-->
+    <!--第一種方式 使用默認構造函數創建
+            在spring的配置文件中使用bean標籤 配以id和class屬性之後 且沒有其他屬性標籤時
+            採用的就是默認構造
+    -->
+<!--    <bean id="accountService" class="com.it.service.impl.AccountServiceImpl"></bean>-->
+
+    <!--第二種方式 使用普通工廠中的方法創建對象(使用某個類中的方法創建對象並存入spring容器 尤其jar)-->
+<!--    <bean id="instanceFactory" class="com.it.factory.InstanceFactory"></bean>-->
+<!--    <bean id="accountService" factory-bean="instanceFactory" factory-method="getAccountService"></bean>-->
+    <!--第三種方式 使用普通工廠中的靜態方法創建對象(使用某個類中的靜態方法創建對象並存入spring容器 尤其jar)-->
+<!--        <bean id="accountService" class="com.it.factory.StaticFactory" factory-method="getAccountService"></bean>-->
+
+    <!--bean的作用範圍調整
+        bean標籤的scope屬性
+            作用: 用於指定bean的作用範圍
+            取直:
+                singleton 單例(默認值)
+                prototype 多例
+                request 作用於web應用的請求範圍
+                session 作用於web應用的會話範圍
+                global-session 作用於集群環境的會話範圍(全局會話範圍) 當不是集群環境時 他就是session
+    -->
+<!--    <bean id="accountService" class="com.it.service.impl.AccountServiceImpl" scope="prototype"></bean>-->
+    <!-- bean對象的生命週期
+            單例對象
+                出生: 當容器創建時對象出生
+                活著: 容器還在 對象就還在
+                死亡: 容器消滅 對象消滅
+                總結: 單例對象的生命週期與容器相同
+            多例對象
+                出生: 使用對象時spring創建
+                活著: 使用過程中 一直活著
+                死亡: 當對象長時間不用 且沒有別的對象引用時 由java的垃圾回收器回收
+    -->
+    <bean id="accountService" class="com.it.service.impl.AccountServiceImpl"
+          scope="prototype" init-method="init" destroy-method="destory"></bean>
+
+
+</beans>
